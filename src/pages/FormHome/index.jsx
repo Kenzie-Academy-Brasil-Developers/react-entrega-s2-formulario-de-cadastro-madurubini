@@ -12,11 +12,14 @@ const FormLogin = ({ setData }) => {
       .string()
       .min(8, "Mínimo de 8 dígitos")
       .matches(
+        /[a-z]+/g,
+        "Sua senha deve conter ao menos uma letra minuscula e um número"
+      )
+      .matches(
         /[^a-zA-Z0-9]+/g,
         "Sua senha deve conter ao menos um caracter especial"
       )
-      .matches(/[A-Z]+/g, "deve conter ao menos uma letra maíuscula")
-      .matches(/[a-z]+/g, "sua senha deve conter ao menos uma letra e número")
+      .matches(/[A-Z]+/g, "Deve conter ao menos uma letra maíuscula")
       .required("Campo obrigatório"),
     checkPassword: yup
       .string()
@@ -41,41 +44,46 @@ const FormLogin = ({ setData }) => {
   } = useForm({ resolver: yupResolver(formSchema) });
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <TextField
-        sx={{ p: 1 }}
-        label="Nome"
-        variant="standard"
-        {...register("name")}
-        helperText={errors.name?.message}
-      />
-      <TextField
-        sx={{ p: 1 }}
-        label="Email"
-        variant="standard"
-        {...register("email")}
-        helperText={errors.email?.message}
-      />
-      <TextField
-        sx={{ p: 1 }}
-        size="small"
-        label="Senha"
-        variant="standard"
-        {...register("password")}
-        helperText={errors.password?.message}
-      />
-      <TextField
-        sx={{ p: 1 }}
-        label="Confirme a sua Senha"
-        variant="standard"
-        size="small"
-        {...register("checkPassword")}
-        helperText={errors.checkPassword?.message}
-      />
-      <Button sx={{ mt: 1, p: 1 }} variant="outlined" type="Submit">
-        Cadastrar
-      </Button>
-    </form>
+    <>
+      <h2>Welcome to the page!</h2>
+      <p>Put your data below, and Login to open your Homepage</p>
+      <form onSubmit={handleSubmit(submit)}>
+        <TextField
+          label="Nome"
+          variant="standard"
+          {...register("name")}
+          helperText={errors.name?.message}
+        />
+        <TextField
+          label="Email"
+          variant="standard"
+          {...register("email")}
+          helperText={errors.email?.message}
+        />
+        <TextField
+          size="small"
+          label="Senha"
+          variant="standard"
+          {...register("password")}
+          helperText={errors.password?.message}
+        />
+        <TextField
+          label="Confirme a sua Senha"
+          variant="standard"
+          size="small"
+          {...register("checkPassword")}
+          helperText={errors.checkPassword?.message}
+        />
+        <Button
+          sx={{ mt: 1, p: 1 }}
+          variant="contained"
+          color="secondary"
+          type="Submit"
+        >
+          Login
+        </Button>
+      </form>
+    </>
   );
 };
 export default FormLogin;
